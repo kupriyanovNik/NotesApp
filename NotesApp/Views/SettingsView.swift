@@ -59,7 +59,7 @@ struct SettingsView: View {
                 Toggle("Always inline title", isOn: $settingsViewModel.alwaysInlineTitle)
                 Toggle("Show bg. animation", isOn: $settingsViewModel.shouldShowBackgroundAnimation)
                 VStack(alignment: .leading) {
-                    Text("\"Cancel\" button color")
+                    Text("Tint color")
                     ScrollView(.horizontal, showsIndicators: false) {
                         CustomColorPicker(tagColor: $settingsViewModel.appAccentColor)
                             .padding(5)
