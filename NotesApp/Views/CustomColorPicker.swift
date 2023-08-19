@@ -16,18 +16,19 @@ struct CusTomColorPicker: View {
                 Circle()
                     .fill(tag.toColor())
                     .frame(width: 35, height: 35)
+                    .scaleEffect(tagColor == tag ? 1.1 : 1)
                     .overlay {
                         if tagColor == tag {
                             Circle()
                                 .stroke(Color.primary, style: .init(lineWidth: 2))
+                                .scaleEffect(tagColor == tag ? 1.1 : 1)
                         }
                     }
                     .onTapGesture {
-                        withAnimation(.spring()) {
-                            self.tagColor = tag
-                        }
+                        self.tagColor = tag
                     }
             }
         }
+        .animation(.spring(response: 1.5), value: tagColor)
     }
 }
