@@ -11,6 +11,7 @@ import RealmSwift
 struct ContentView: View {
     
     @EnvironmentObject var notesViewModel: NotesViewModel
+    @EnvironmentObject var newNoteViewModel: NewNoteViewModel
     @ObservedResults(NoteItem.self, sortDescriptor: SortDescriptor(keyPath: "timestamp", ascending: false)) var notes
     
     private var nonTodayDateFormatter: DateFormatter {
@@ -85,7 +86,7 @@ struct ContentView: View {
             }
             .sheet(isPresented: $notesViewModel.showAddingScreen) {
                 AddNoteView()
-                    .environmentObject(notesViewModel)
+                    .environmentObject(newNoteViewModel)
                     .interactiveDismissDisabled()
             }
         }
@@ -97,5 +98,6 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(NotesViewModel())
+            .environmentObject(NewNoteViewModel())
     }
 }

@@ -10,27 +10,22 @@ import RealmSwift
 
 struct AddNoteView: View {
     
-    @EnvironmentObject var notesViewModel: NotesViewModel
+    @EnvironmentObject var vm: NewNoteViewModel
     @ObservedResults(NoteItem.self) var notes
     @Environment(\.dismiss) var dismiss
-    
-    @State private var showAlert: Bool = false
-    @State private var noteTitle: String = ""
-    @State private var noteContent: String = ""
-    @State private var noteTagColor: String = "red"
     
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    TextField("Title", text: $noteTitle)
-                    TextField("Content", text: $noteContent, axis: .vertical)
+                    TextField("Title", text: $vm.noteTitle)
+                    TextField("Content", text: $vm.noteContent, axis: .vertical)
                 } header: {
                     Text("Note information")
                 }
                 Section {
                     HStack {
-                        CusTomColorPicker(tagColor: $noteTagColor)
+                        CusTomColorPicker(tagColor: $vm.noteTagColor)
                             .padding()
                     }
                 } header: {
@@ -39,16 +34,16 @@ struct AddNoteView: View {
 
                 Section {
                     Button {
-                        if noteTitle.count > 4 && noteTitle.count < 21 {
+                        if vm.noteTitle.count > 4 && vm.noteTitle.count < 21 {
                             let note = NoteItem()
-                            note.title = noteTitle
-                            note.content = noteContent
-                            note.color = noteTagColor
+                            note.title = vm.noteTitle
+                            note.content = vm.noteContent
+                            note.color = vm.noteTagColor
                             note.timestamp = .now
                             $notes.append(note)
                             dismiss()
                         } else {
-                            showAlert.toggle()
+                            vm.showAlert.toggle()
                         }
                     } label: {
                         Label("Add note", systemImage: "plus")
@@ -59,7 +54,7 @@ struct AddNoteView: View {
 
 
             }
-            .alert("Note title must be longer when 4 and shorter when 20 letters.", isPresented: $showAlert, actions: {
+            .alert("Note title must be longer when 4 and shorter when 20 letters.", isPresented: $vm.showAlert, actions: {
                 Button("ok", role: .cancel) {
                     
                 }
@@ -79,6 +74,6 @@ struct AddNoteView: View {
 struct AddNoteView_Previews: PreviewProvider {
     static var previews: some View {
         AddNoteView()
-            .environmentObject(NotesViewModel())
+            .environmentObject(NewNoteViewModel())
     }
 }
