@@ -64,7 +64,11 @@ struct ContentView: View {
                         .onDelete(perform: $notes.remove)
                     }
                 } else {
-                    Text("Tap a **+** button in toolbar.")
+                    ZStack {
+                        Color(.secondarySystemBackground)
+                            .ignoresSafeArea()
+                        Text("Tap a **+** button in toolbar.")
+                    }
                 }
             }
             .navigationTitle("Notes")

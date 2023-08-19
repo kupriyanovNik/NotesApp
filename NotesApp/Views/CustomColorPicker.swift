@@ -29,6 +29,6 @@ struct CusTomColorPicker: View {
                     }
             }
         }
-        .animation(.spring(response: 1.5), value: tagColor)
+        .animation(.spring(response: 0.5), value: tagColor)
     }
 }

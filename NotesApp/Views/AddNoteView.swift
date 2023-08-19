@@ -23,7 +23,7 @@ struct AddNoteView: View {
         NavigationView {
             Form {
                 Section {
-                    TextField("Title", text: $noteTitle, axis: .vertical)
+                    TextField("Title", text: $noteTitle)
                     TextField("Content", text: $noteContent, axis: .vertical)
                 } header: {
                     Text("Note information")
@@ -39,7 +39,7 @@ struct AddNoteView: View {
 
                 Section {
                     Button {
-                        if !noteTitle.isEmpty {
+                        if noteTitle.count > 4 && noteTitle.count < 21 {
                             let note = NoteItem()
                             note.title = noteTitle
                             note.content = noteContent
@@ -59,7 +59,7 @@ struct AddNoteView: View {
 
 
             }
-            .alert("Note title can't be empty", isPresented: $showAlert, actions: {
+            .alert("Note title must be longer when 4 and shorter when 20 letters.", isPresented: $showAlert, actions: {
                 Button("ok", role: .cancel) {
                     
                 }

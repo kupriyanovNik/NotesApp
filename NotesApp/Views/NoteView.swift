@@ -26,10 +26,10 @@ struct NoteView: View {
             VStack {
                 if isEditingTitle {
                     VStack {
-                        TextField(note.title, text: $newNoteTitle, axis: .vertical)
+                        TextField(note.title, text: $newNoteTitle)
                             .bold()
                             .font(.title3)
-                            .onSubmit {
+                            .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidEndEditingNotification)) { _ in
                                 let newTitleLength = newNoteTitle.replacingOccurrences(of: " ", with: "").count
                                 if newTitleLength > 4 && newTitleLength < 21 {
                                     $note.title.wrappedValue = newNoteTitle
