@@ -11,6 +11,9 @@ import RealmSwift
 struct NoteView: View {
     
     @Environment(\.colorScheme) var colorScheme
+    
+    @EnvironmentObject var settingsViewModel: SettingsViewModel
+    
     @ObservedRealmObject var note: NoteItem
     
     @State private var newNoteTitle: String = ""
@@ -42,7 +45,7 @@ struct NoteView: View {
                                 }
                             }
                         Divider()
-                        CusTomColorPicker(tagColor: $note.color)
+                        CustomColorPicker(tagColor: $note.color)
                     }
                     .padding()
                     .background(colorScheme == .dark ? Color(.secondarySystemBackground) : .white)
@@ -89,17 +92,19 @@ struct NoteView: View {
         })
     }
     private func changeBackgroundColor() {
-        withAnimation(.linear(duration: 0.2)) {
-            bgColor = note.color.toColor()
-        }
-        withAnimation(.linear(duration: 0.2).delay(1)) {
-            bgColor = nil
-        }
-        withAnimation(.linear(duration: 0.1).delay(1.4)) {
-            self.colorScale = true
-        }
-        withAnimation(.linear(duration: 0.1).delay(1.55)) {
-            self.colorScale = false
+        if settingsViewModel.shouldShowBackgroundAnimation {
+            withAnimation(.linear(duration: 0.2)) {
+                bgColor = note.color.toColor()
+            }
+            withAnimation(.linear(duration: 0.2).delay(1)) {
+                bgColor = nil
+            }
+            withAnimation(.linear(duration: 0.1).delay(1.4)) {
+                self.colorScale = true
+            }
+            withAnimation(.linear(duration: 0.1).delay(1.55)) {
+                self.colorScale = false
+            }
         }
     }
 }
@@ -107,6 +112,7 @@ struct NoteView: View {
 struct NoteView_Previews: PreviewProvider {
     static var previews: some View {
         NoteView(note: .init())
+            .environmentObject(SettingsViewModel())
     }
 }
 

@@ -12,7 +12,7 @@
 		B701722A2A87CF0F00FE5E79 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B70172292A87CF0F00FE5E79 /* Assets.xcassets */; };
 		B701722D2A87CF0F00FE5E79 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B701722C2A87CF0F00FE5E79 /* Preview Assets.xcassets */; };
 		B70172342A87D03200FE5E79 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70172332A87D03200FE5E79 /* Note.swift */; };
-		B70172362A87D06700FE5E79 /* NotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70172352A87D06700FE5E79 /* NotesViewModel.swift */; };
+		B70172362A87D06700FE5E79 /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70172352A87D06700FE5E79 /* NavigationViewModel.swift */; };
 		B70172382A87D49000FE5E79 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70172372A87D49000FE5E79 /* NoteView.swift */; };
 		B701723B2A87D60A00FE5E79 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = B701723A2A87D60A00FE5E79 /* Realm */; };
 		B701723D2A87D60A00FE5E79 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B701723C2A87D60A00FE5E79 /* RealmSwift */; };
@@ -20,6 +20,8 @@
 		B7664FDC2A88F86700325F6B /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7664FDB2A88F86700325F6B /* String+Extension.swift */; };
 		B7664FE02A890C5400325F6B /* CustomColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7664FDF2A890C5400325F6B /* CustomColorPicker.swift */; };
 		B7E8C88F2A91369A00FCD6E4 /* NewNoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E8C88E2A91369A00FCD6E4 /* NewNoteViewModel.swift */; };
+		B7E8C8922A9137E400FCD6E4 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E8C8912A9137E400FCD6E4 /* SettingsViewModel.swift */; };
+		B7E8C8942A9139BB00FCD6E4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E8C8932A9139BB00FCD6E4 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,12 +31,14 @@
 		B70172292A87CF0F00FE5E79 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B701722C2A87CF0F00FE5E79 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B70172332A87D03200FE5E79 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
-		B70172352A87D06700FE5E79 /* NotesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewModel.swift; sourceTree = "<group>"; };
+		B70172352A87D06700FE5E79 /* NavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModel.swift; sourceTree = "<group>"; };
 		B70172372A87D49000FE5E79 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 		B701723E2A87D8EF00FE5E79 /* AddNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteView.swift; sourceTree = "<group>"; };
 		B7664FDB2A88F86700325F6B /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		B7664FDF2A890C5400325F6B /* CustomColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColorPicker.swift; sourceTree = "<group>"; };
 		B7E8C88E2A91369A00FCD6E4 /* NewNoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteViewModel.swift; sourceTree = "<group>"; };
+		B7E8C8912A9137E400FCD6E4 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		B7E8C8932A9139BB00FCD6E4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,8 +111,9 @@
 		B7664FDD2A88F87900325F6B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				B70172352A87D06700FE5E79 /* NotesViewModel.swift */,
+				B70172352A87D06700FE5E79 /* NavigationViewModel.swift */,
 				B7E8C88E2A91369A00FCD6E4 /* NewNoteViewModel.swift */,
+				B7E8C8912A9137E400FCD6E4 /* SettingsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -117,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				B70172272A87CF0E00FE5E79 /* ContentView.swift */,
+				B7E8C8932A9139BB00FCD6E4 /* SettingsView.swift */,
 				B701723E2A87D8EF00FE5E79 /* AddNoteView.swift */,
 				B70172372A87D49000FE5E79 /* NoteView.swift */,
 				B7E8C8902A91375B00FCD6E4 /* Components */,
@@ -213,11 +219,13 @@
 				B7664FDC2A88F86700325F6B /* String+Extension.swift in Sources */,
 				B7664FE02A890C5400325F6B /* CustomColorPicker.swift in Sources */,
 				B7E8C88F2A91369A00FCD6E4 /* NewNoteViewModel.swift in Sources */,
-				B70172362A87D06700FE5E79 /* NotesViewModel.swift in Sources */,
+				B70172362A87D06700FE5E79 /* NavigationViewModel.swift in Sources */,
+				B7E8C8922A9137E400FCD6E4 /* SettingsViewModel.swift in Sources */,
 				B70172382A87D49000FE5E79 /* NoteView.swift in Sources */,
 				B70172282A87CF0E00FE5E79 /* ContentView.swift in Sources */,
 				B70172262A87CF0E00FE5E79 /* NotesAppApp.swift in Sources */,
 				B70172342A87D03200FE5E79 /* Note.swift in Sources */,
+				B7E8C8942A9139BB00FCD6E4 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

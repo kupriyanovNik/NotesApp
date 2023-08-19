@@ -12,4 +12,10 @@ class NewNoteViewModel: ObservableObject {
     @Published var noteTitle: String = ""
     @Published var noteContent: String = ""
     @Published var noteTagColor: String = "red"
+    
+    func clear() {
+        self.noteTitle = ""
+        self.noteContent = ""
+        self.noteTagColor = "red"
+    }
 }

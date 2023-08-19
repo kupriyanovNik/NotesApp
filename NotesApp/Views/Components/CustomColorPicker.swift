@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct CusTomColorPicker: View {
+struct CustomColorPicker: View {
     @Binding var tagColor: String
-    private let tags: [String] = ["red", "yellow", "mint", "green", "brown", "orange"]
+    private let tags: [String] = ["red", "yellow", "mint", "green", "orange", "brown", "blue"]
     var body: some View {
         HStack {
             ForEach(tags, id: \.hashValue) { tag in
@@ -28,7 +28,7 @@ struct CusTomColorPicker: View {
                         self.tagColor = tag
                     }
             }
+            .animation(.spring(response: 0.5), value: tagColor)
         }
-        .animation(.spring(response: 0.5), value: tagColor)
     }
 }

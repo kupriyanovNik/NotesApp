@@ -17,6 +17,8 @@ extension String {
         case "green": return .green
         case "brown": return .brown
         case "orange": return .orange
+        case "blue": return .blue
+        case "black": return .black
         default: return .black
         }
     }
