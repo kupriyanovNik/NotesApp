@@ -6,13 +6,18 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
     
     @EnvironmentObject var settingsViewModel: SettingsViewModel
     
+    @ObservedResults(NoteItem.self) var notes
+    
     var isModalPresentation: Bool
+    
+    var manager = FirebaseManager.shared
     
     var body: some View {
         if isModalPresentation {
@@ -74,7 +79,7 @@ struct SettingsView: View {
                     Label(FirebaseManager.shared.auth.currentUser?.email ?? "default email", systemImage: "person")
                     Button {
                         do {
-                            try FirebaseManager.shared.auth.signOut()
+                            try manager.auth.signOut()
                             settingsViewModel.isAuth = false
                         } catch {
                             print(error.localizedDescription)
@@ -83,6 +88,13 @@ struct SettingsView: View {
                         Label("Log Out", systemImage: "person.fill.xmark")
                             .foregroundColor(.primary)
                     }
+                    Button {
+                        fetchAllNotes()
+                    } label: {
+                        Text("Fetch all")
+                            .foregroundColor(.blue)
+                    }
+
                 } header: {
                     Text("Firebase")
                 }
@@ -102,6 +114,37 @@ struct SettingsView: View {
         }
         .navigationBarTitleDisplayMode(settingsViewModel.alwaysInlineTitle ? .inline : .automatic)
         .navigationTitle("Settings")
+    }
+    private func fetchAllNotes() {
+        manager
+            .firestore
+            .collection("notes")
+            .getDocuments { snapshot, error in
+                if let error {
+                    print(error)
+                    return
+                }
+                snapshot?.documents.forEach { doc in
+                    let data = doc.data()
+                    let noteTitle = data["noteTitle"] ?? "default noteTitle"
+                    let noteContent = data["noteContent"] ?? "default noteContent"
+                    let noteColor = data["noteColor"] ?? "default noteColor"
+                    let noteTimestamp = data["timestamp"] as? Date ?? .now
+                    let fromUID = data["fromUID"] ?? "default fromUID"
+                    let newNote = NoteItem()
+                    newNote.title = noteTitle as! String
+                    newNote.content = noteContent as! String
+                    newNote.color = noteColor as! String
+                    newNote.timestamp = noteTimestamp
+                    newNote.noteUUID = doc.documentID
+                    
+                    let uuids = self.notes.map { $0.noteUUID }
+                    if !uuids.contains(doc.documentID) {
+                        $notes.append(newNote)
+                    }
+                    
+                }
+            }
     }
 }
 

@@ -65,6 +65,7 @@ struct AddNoteView: View {
                         note.content = vm.noteContent
                         note.color = vm.noteTagColor
                         note.timestamp = .now
+                        note.noteUUID = UUID().uuidString
                         $notes.append(note)
                         vm.clear()
                         dismiss()

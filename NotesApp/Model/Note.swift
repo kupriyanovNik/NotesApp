@@ -14,7 +14,7 @@ final class NoteItem: Object, Identifiable { //ObjectKeyIdentifiable
     @Persisted var content: String = ""
     @Persisted var color: String = ""
     @Persisted var timestamp: Date
-    
+    @Persisted var noteUUID: String
     override class func primaryKey() -> String? {
         "id"
     }

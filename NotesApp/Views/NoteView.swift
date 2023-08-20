@@ -20,7 +20,9 @@ struct NoteView: View {
     @State private var isEditingTitle: Bool = false
     @State private var showAlert: Bool = false
     @State private var bgColor: Color? = nil
-    @State private var colorScale: Bool = false
+    @State private var errorMessage: String? = nil
+    
+    var manager = FirebaseManager.shared
     
     var body: some View {
         ZStack {
@@ -62,19 +64,66 @@ struct NoteView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    HStack(spacing: 10) {
-                        Text(newNoteTitle)
-                            .bold()
-                            .font(.title3)
-                            .onTapGesture {
+                    if !settingsViewModel.isAuth {
+                        HStack(spacing: 10) {
+                            Text(newNoteTitle)
+                                .bold()
+                                .font(.title3)
+                                .onTapGesture {
+                                    withAnimation(.spring()) {
+                                        self.isEditingTitle.toggle()
+                                    }
+                                }
+                            Circle()
+                                .fill(note.color.toColor())
+                                .frame(width: 10, height: 10)
+                        }
+                    } else {
+                        Menu {
+                            Button(isEditingTitle ? "Hide" : "Expand") {
                                 withAnimation(.spring()) {
                                     self.isEditingTitle.toggle()
                                 }
                             }
-                        Circle()
-                            .fill(note.color.toColor())
-                            .frame(width: 10, height: 10)
-                            .scaleEffect(colorScale ? 1.5 : 1)
+                            Button("Publish to Firebase") {
+                                let noteData = [
+                                    "fromUID" : manager.auth.currentUser?.uid ?? "defaultID",
+                                    "noteTitle" : note.title,
+                                    "noteContent" : note.content,
+                                    "noteColor" : note.color,
+                                    "timestamp" : note.timestamp as Date
+                                ] as [String : Any]
+                                manager
+                                    .firestore
+                                    .collection("notes")
+                                    .document(note.noteUUID)
+                                    .setData(noteData) { error in
+                                        if let error {
+                                            withAnimation {
+                                                self.errorMessage = error.localizedDescription
+                                                self.showAlert = true
+                                                return
+                                            }
+                                        }
+                                        self.errorMessage = nil
+                                    }
+                            }
+                        } label: {
+                            HStack(spacing: 10) {
+                                Text(newNoteTitle)
+                                    .bold()
+                                    .font(.title3)
+                                    .onTapGesture {
+                                        withAnimation(.spring()) {
+                                            self.isEditingTitle.toggle()
+                                        }
+                                    }
+                                Circle()
+                                    .fill(note.color.toColor())
+                                    .frame(width: 10, height: 10)
+                            }
+                        }
+
                     }
                 }
             }
@@ -85,7 +134,7 @@ struct NoteView: View {
                 changeBackgroundColor()
             }
         }
-        .alert("Note title must be longer when 4 and shorter when 20 letters.", isPresented: $showAlert, actions: {
+        .alert(errorMessage == nil ? "Note title must be longer when 4 and shorter when 20 letters." : errorMessage!, isPresented: $showAlert, actions: {
             Button("ok", role: .cancel) {
                 
             }
@@ -98,12 +147,6 @@ struct NoteView: View {
             }
             withAnimation(.linear(duration: 0.2).delay(1)) {
                 bgColor = nil
-            }
-            withAnimation(.linear(duration: 0.1).delay(1.4)) {
-                self.colorScale = true
-            }
-            withAnimation(.linear(duration: 0.1).delay(1.55)) {
-                self.colorScale = false
             }
         }
     }

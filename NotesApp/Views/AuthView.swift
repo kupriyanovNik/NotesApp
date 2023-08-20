@@ -20,6 +20,8 @@ struct AuthView: View {
     
     @EnvironmentObject var settingsViewModel: SettingsViewModel
     
+    private var manager = FirebaseManager.shared
+    
     var body: some View {
         ZStack {
             informationView
@@ -131,7 +133,7 @@ struct AuthView: View {
     }
     
     private func logInUser() {
-        FirebaseManager.shared.auth.signIn(withEmail: email, password: password) { result, error in
+        manager.auth.signIn(withEmail: email, password: password) { result, error in
             if let error {
                 withAnimation {
                     self.errorMessage = error.localizedDescription
@@ -146,7 +148,7 @@ struct AuthView: View {
     
     private func createNewAccount() {
         if password == passwordConfirmation {
-            FirebaseManager.shared.auth.createUser(withEmail: email, password: password) { result, error in
+            manager.auth.createUser(withEmail: email, password: password) { result, error in
                 if let error {
                     withAnimation {
                         self.errorMessage = error.localizedDescription
@@ -162,7 +164,6 @@ struct AuthView: View {
         }
     }
     private func storeUserInformation() {
-        let manager = FirebaseManager.shared
         guard let uid = manager.auth.currentUser?.uid else { return }
         let userData = ["email" : self.email, "password" : password, "uid" : uid]
         manager.firestore
