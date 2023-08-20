@@ -17,20 +17,6 @@ struct ContentView: View {
     
     @ObservedResults(NoteItem.self, sortDescriptor: SortDescriptor(keyPath: "timestamp", ascending: false)) var notes
     
-    private var nonTodayDateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .none
-        return formatter
-    }
-    private var todayDateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .none
-        formatter.timeStyle = .short
-        return formatter
-    }
-    private var calendar = Calendar.current
-    
     var body: some View {
         NavigationView {
             ZStack {
@@ -38,7 +24,7 @@ struct ContentView: View {
                     if !notes.isEmpty {
                         List {
                             ForEach(notes) { note in
-                                NoteRow(note)
+                                NoteRow(note: note)
                             }
                             .onDelete(perform: $notes.remove)
                         }
@@ -104,34 +90,6 @@ struct ContentView: View {
             }
         }
         .accentColor(.primary)
-    }
-    @ViewBuilder func NoteRow(_ note: NoteItem) -> some View {
-        var noteDate: String {
-            let date = note.timestamp
-            if calendar.isDateInToday(date) {
-                return todayDateFormatter.string(from: date)
-            } else {
-                return nonTodayDateFormatter.string(from: date)
-            }
-        }
-        NavigationLink {
-            NoteView(note: note)
-        } label: {
-            HStack {
-                RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(note.color.toColor())
-                    .frame(width: 3)
-                VStack(alignment: .leading) {
-                    Text(note.title)
-                        .lineLimit(1)
-                        .font(.title2)
-                        .bold()
-                    Text(noteDate)
-                        .font(.caption)
-                }
-                Spacer()
-            }
-        }
     }
 }
 

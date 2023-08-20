@@ -86,28 +86,7 @@ struct NoteView: View {
                                 }
                             }
                             Button("Publish to Firebase") {
-                                let noteData = [
-                                    "fromUID" : manager.auth.currentUser?.uid ?? "defaultID",
-                                    "noteTitle" : note.title,
-                                    "noteContent" : note.content,
-                                    "noteColor" : note.color,
-                                    "timestamp" : note.timestamp as Date
-                                ] as [String : Any]
-                                manager
-                                    .firestore
-                                    .collection("notes")
-                                    .document(note.noteUUID)
-                                    .setData(noteData) { error in
-                                        if let error {
-                                            withAnimation {
-                                                self.errorMessage = error.localizedDescription
-                                                self.showAlert = true
-                                                return
-                                            }
-                                        }
-                                        self.errorMessage = nil
-                                        $note.isPersistedFB.wrappedValue = true
-                                    }
+                                publishToFirebase()
                             }
                         } label: {
                             HStack(spacing: 10) {
@@ -150,6 +129,30 @@ struct NoteView: View {
                 bgColor = nil
             }
         }
+    }
+    private func publishToFirebase() {
+        let noteData = [
+            "fromUID" : manager.auth.currentUser?.uid ?? "defaultID",
+            "noteTitle" : note.title,
+            "noteContent" : note.content,
+            "noteColor" : note.color,
+            "timestamp" : note.timestamp as Date
+        ] as [String : Any]
+        manager
+            .firestore
+            .collection("notes")
+            .document(note.noteUUID)
+            .setData(noteData) { error in
+                if let error {
+                    withAnimation {
+                        self.errorMessage = error.localizedDescription
+                        self.showAlert = true
+                        return
+                    }
+                }
+                self.errorMessage = nil
+                $note.isPersistedFB.wrappedValue = true
+            }
     }
 }
 

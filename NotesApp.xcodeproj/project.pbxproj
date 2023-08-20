@@ -26,6 +26,7 @@
 		B7AD0A9A2A9220DA00FE77F0 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AD0A992A9220DA00FE77F0 /* FirebaseManager.swift */; };
 		B7AD0A9C2A92219B00FE77F0 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AD0A9B2A92219B00FE77F0 /* AuthView.swift */; };
 		B7AD0A9E2A9222F900FE77F0 /* AnimaatedGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AD0A9D2A9222F900FE77F0 /* AnimaatedGradient.swift */; };
+		B7AD0AA02A924DA100FE77F0 /* NoteRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AD0A9F2A924DA100FE77F0 /* NoteRow.swift */; };
 		B7E8C88F2A91369A00FCD6E4 /* NewNoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E8C88E2A91369A00FCD6E4 /* NewNoteViewModel.swift */; };
 		B7E8C8922A9137E400FCD6E4 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E8C8912A9137E400FCD6E4 /* SettingsViewModel.swift */; };
 		B7E8C8942A9139BB00FCD6E4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E8C8932A9139BB00FCD6E4 /* SettingsView.swift */; };
@@ -47,6 +48,7 @@
 		B7AD0A992A9220DA00FE77F0 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		B7AD0A9B2A92219B00FE77F0 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		B7AD0A9D2A9222F900FE77F0 /* AnimaatedGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimaatedGradient.swift; sourceTree = "<group>"; };
+		B7AD0A9F2A924DA100FE77F0 /* NoteRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRow.swift; sourceTree = "<group>"; };
 		B7E8C88E2A91369A00FCD6E4 /* NewNoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteViewModel.swift; sourceTree = "<group>"; };
 		B7E8C8912A9137E400FCD6E4 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		B7E8C8932A9139BB00FCD6E4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				B70172272A87CF0E00FE5E79 /* ContentView.swift */,
+				B7AD0A9F2A924DA100FE77F0 /* NoteRow.swift */,
 				B7E8C8932A9139BB00FCD6E4 /* SettingsView.swift */,
 				B701723E2A87D8EF00FE5E79 /* AddNoteView.swift */,
 				B70172372A87D49000FE5E79 /* NoteView.swift */,
@@ -254,6 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7AD0AA02A924DA100FE77F0 /* NoteRow.swift in Sources */,
 				B7AD0A9E2A9222F900FE77F0 /* AnimaatedGradient.swift in Sources */,
 				B7AD0A9A2A9220DA00FE77F0 /* FirebaseManager.swift in Sources */,
 				B701723F2A87D8EF00FE5E79 /* AddNoteView.swift in Sources */,
