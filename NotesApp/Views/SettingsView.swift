@@ -130,19 +130,20 @@ struct SettingsView: View {
                 
                 snapshot?.documents.forEach { doc in
                     let data = doc.data()
-                    let noteTitle = data["noteTitle"] ?? "default noteTitle"
-                    let noteContent = data["noteContent"] ?? "default noteContent"
-                    let noteColor = data["noteColor"] ?? "default noteColor"
-                    let noteTimestamp = data["timestamp"] as? Timestamp ?? .init(date: .now)
-                    let newNote = NoteItem()
-                    newNote.title = noteTitle as! String
-                    newNote.content = noteContent as! String
-                    newNote.color = noteColor as! String
-                    newNote.timestamp = noteTimestamp.dateValue()
-                    newNote.noteUUID = doc.documentID
-                    newNote.isPersistedFB = true 
-                    insideNotes.append(newNote)
-                    
+                    if data["fromUID"] as? String ?? "default" == manager.auth.currentUser?.uid {
+                        let noteTitle = data["noteTitle"] ?? "default noteTitle"
+                        let noteContent = data["noteContent"] ?? "default noteContent"
+                        let noteColor = data["noteColor"] ?? "default noteColor"
+                        let noteTimestamp = data["timestamp"] as? Timestamp ?? .init(date: .now)
+                        let newNote = NoteItem()
+                        newNote.title = noteTitle as! String
+                        newNote.content = noteContent as! String
+                        newNote.color = noteColor as! String
+                        newNote.timestamp = noteTimestamp.dateValue()
+                        newNote.noteUUID = doc.documentID
+                        newNote.isPersistedFB = true
+                        insideNotes.append(newNote)
+                    }
                 }
                 
                 for note in self.notes {
