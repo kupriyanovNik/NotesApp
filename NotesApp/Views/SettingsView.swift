@@ -30,6 +30,7 @@ struct SettingsView: View {
                         }
                     }
             }
+            .accentColor(.primary)
         } else {
             mainSettingsView
             
@@ -67,6 +68,36 @@ struct SettingsView: View {
                 }
             } header: {
                 Text("Interface")
+            }
+            if settingsViewModel.isAuth {
+                Section {
+                    Label(FirebaseManager.shared.auth.currentUser?.email ?? "default email", systemImage: "person")
+                    Button {
+                        do {
+                            try FirebaseManager.shared.auth.signOut()
+                            settingsViewModel.isAuth = false
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                    } label: {
+                        Label("Log Out", systemImage: "person.fill.xmark")
+                            .foregroundColor(.primary)
+                    }
+                } header: {
+                    Text("Firebase")
+                }
+            } else {
+                Section {
+                    NavigationLink {
+                        AuthView()
+                            .environmentObject(settingsViewModel)
+                    } label: {
+                        Label("Authentication", systemImage: "person.fill.checkmark")
+                            .foregroundColor(.primary)
+                    }
+                } header: {
+                    Text("Firebase")
+                }
             }
         }
         .navigationBarTitleDisplayMode(settingsViewModel.alwaysInlineTitle ? .inline : .automatic)

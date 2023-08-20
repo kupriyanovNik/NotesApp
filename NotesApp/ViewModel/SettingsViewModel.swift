@@ -15,4 +15,5 @@ class SettingsViewModel: ObservableObject {
     @AppStorage("appAccentColor") var appAccentColor: String = "blue"
     @AppStorage("alwaysInlineTitle") var alwaysInlineTitle: Bool = false
     @AppStorage("alwaysClearField") var alwaysClearField: Bool = false
+    @AppStorage("isAuth") var isAuth: Bool = false
 }
