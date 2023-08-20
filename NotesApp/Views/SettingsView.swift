@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import Firebase
 
 struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
@@ -124,26 +125,36 @@ struct SettingsView: View {
                     print(error)
                     return
                 }
+                
+                var insideNotes = Array(self.notes).filter { !$0.isPersistedFB }
+                
                 snapshot?.documents.forEach { doc in
                     let data = doc.data()
                     let noteTitle = data["noteTitle"] ?? "default noteTitle"
                     let noteContent = data["noteContent"] ?? "default noteContent"
                     let noteColor = data["noteColor"] ?? "default noteColor"
-                    let noteTimestamp = data["timestamp"] as? Date ?? .now
-                    let fromUID = data["fromUID"] ?? "default fromUID"
+                    let noteTimestamp = data["timestamp"] as? Timestamp ?? .init(date: .now)
                     let newNote = NoteItem()
                     newNote.title = noteTitle as! String
                     newNote.content = noteContent as! String
                     newNote.color = noteColor as! String
-                    newNote.timestamp = noteTimestamp
+                    newNote.timestamp = noteTimestamp.dateValue()
                     newNote.noteUUID = doc.documentID
-                    
-                    let uuids = self.notes.map { $0.noteUUID }
-                    if !uuids.contains(doc.documentID) {
-                        $notes.append(newNote)
-                    }
+                    newNote.isPersistedFB = true 
+                    insideNotes.append(newNote)
                     
                 }
+                
+                for note in self.notes {
+                    if note.isPersistedFB {
+                        $notes.remove(note)
+                    }
+                }
+                
+                for item in insideNotes {
+                    $notes.append(item)
+                }
+                
             }
     }
 }

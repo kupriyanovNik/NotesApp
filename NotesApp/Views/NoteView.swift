@@ -106,6 +106,7 @@ struct NoteView: View {
                                             }
                                         }
                                         self.errorMessage = nil
+                                        $note.isPersistedFB.wrappedValue = true
                                     }
                             }
                         } label: {
